@@ -5,8 +5,23 @@ public interface RemovableContainer<Data> extends Container { // Must extend Con
 
   boolean Remove(Data data);
 
-  boolean RemoveAll(TraversableContainer<Data> traversableContainer);
+  default boolean RemoveAll(TraversableContainer<Data> container){
+    boolean failureFound = container.TraverseForward( (elem) -> {
+      boolean success = this.Remove(elem);
+      return !success;
+    });
 
-  boolean RemoveSome(TraversableContainer<Data> traversableContainer);
+    return !failureFound;
+  }
+
+  default boolean RemoveSome(TraversableContainer<Data> container){
+    return container.FoldForward(
+            (elem, acc) -> {
+              boolean res = this.Remove(elem);
+              return acc || res;
+            },
+            false
+    );
+  }
 
 }

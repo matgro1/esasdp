@@ -8,9 +8,14 @@ import apsd.classes.utilities.Natural;
 /** Interface: Iteratore in avanti. */
 public interface ForwardIterator<Data> extends Iterator<Data>{ // Must extend Iterator
 
-  void Next();
-  void Next(long steps);
-  void Next(Natural steps);
+  default void Next(){
+      DataNNext();
+  }
+  default void Next(long steps){
+      for(long i = 0; i < steps; i++){
+        Next();
+      }
+  }
   Data DataNNext();
 
   default boolean ForEachForward(Predicate<Data> fun) {

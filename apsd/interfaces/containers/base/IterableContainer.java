@@ -10,12 +10,38 @@ public interface IterableContainer<Data> extends TraversableContainer<Data>{ // 
   ForwardIterator<Data> FIterator();
   BackwardIterator<Data> BIterator();
 
-  boolean IsEqual(IterableContainer<Data> other);
+  default boolean IsEqual(IterableContainer<Data> other){
+    ForwardIterator<Data> otherIter = other.FIterator();
+    boolean mismatchFound = this.FIterator().ForEachForward((currData) -> {
+
+      if (!otherIter.IsValid()) {
+        return true;
+      }
+
+      Data otherData = otherIter.DataNNext();
+      if (!currData.equals(otherData)) {
+        return true;
+      }
+
+      return false;
+    });
+    if (mismatchFound) return false;
+    return !otherIter.IsValid();
+  }
 
   /* ************************************************************************ */
   /* Override specific member functions from TraversableContainer             */
   /* ************************************************************************ */
 
+  @Override
+  default boolean TraverseForward(Predicate<Data> predicate){
+    return FIterator().ForEachForward(predicate);
+  }
+  @Override
+  default boolean TraverseBackward(Predicate<Data> predicate){
+
+    return BIterator().ForEachBackward(predicate);
+  }
   // ...
 
 }

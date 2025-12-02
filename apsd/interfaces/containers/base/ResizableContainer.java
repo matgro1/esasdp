@@ -10,7 +10,9 @@ public interface ResizableContainer extends ReallocableContainer { // Must exten
   double THRESHOLD_FACTOR = 2.0; // Must be strictly greater than 1.
 
 
-  void Expand();
+  default void Expand(){
+
+  }
   void Expand(Natural steps);
 
 
@@ -19,14 +21,21 @@ public interface ResizableContainer extends ReallocableContainer { // Must exten
   /* ************************************************************************ */
   /* Override specific member functions from Container                        */
   /* ************************************************************************ */
-
+  @Override
+  Natural Size();
   // ...
 
   /* ************************************************************************ */
   /* Override specific member functions from ReallocableContainer             */
   /* ************************************************************************ */
 
-  // ...
+  @Override
+  default void Grow(){
+    if (Size().ToLong() == Capacity().ToLong()) {
+      ReallocableContainer.super.Grow();
+    }
+  }
+
 
   @Override
   default void Shrink() {

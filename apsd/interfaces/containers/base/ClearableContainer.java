@@ -3,6 +3,5 @@ package apsd.interfaces.containers.base;
 import apsd.interfaces.traits.Clearable;
 
 /** Interface: Container che è anche Clearable. */
-public interface ClearableContainer extends Container {
-    void Clear();
+public interface ClearableContainer extends Container,Clearable{
 }

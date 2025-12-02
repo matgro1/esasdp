@@ -5,8 +5,26 @@ public interface InsertableContainer<Data> extends Container { // Must extend Co
 
   boolean Insert(Data data);
 
-  boolean InsertAll(TraversableContainer<Data> data);
+  default boolean InsertAll(TraversableContainer<Data> container){
 
-  boolean InsertSome(TraversableContainer<Data> data);
+    boolean failureFound = container.TraverseForward( (elem) -> {
+
+      boolean success = this.Insert(elem);
+
+      return !success;
+    });
+
+    return !failureFound;
+  }
+
+  default boolean InsertSome(TraversableContainer<Data> container){
+    return container.FoldForward(
+            (elem, acc) -> {
+              boolean res = this.Insert(elem);
+              return acc || res;
+            },
+            false
+    );
+  }
 
 }

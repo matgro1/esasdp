@@ -28,11 +28,22 @@ public interface TraversableContainer<Data> extends MembershipContainer<Data>{ /
   /* Override specific member functions from Container                        */
   /* ************************************************************************ */
 
-  // ...
 
+    @Override
+    default Natural Size(){
+        long count = FoldForward( (d, acc) -> acc + 1L, 0L );
+
+        return new Natural(count);
+    }
   /* ************************************************************************ */
   /* Override specific member functions from MembershipContainer              */
   /* ************************************************************************ */
-
+    @Override
+    default boolean Exists(Data data){
+        return TraverseForward((elem) -> {
+            if (elem == null) return data == null;
+            return elem.equals(data);
+        });
+    }
 
 }
