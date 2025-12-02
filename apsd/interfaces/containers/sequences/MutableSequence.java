@@ -1,30 +1,67 @@
 package apsd.interfaces.containers.sequences;
 
-// import apsd.classes.utilities.Natural;
-// import apsd.interfaces.containers.base.MutableIterableContainer;
-// import apsd.interfaces.containers.iterators.MutableForwardIterator;
+ import apsd.classes.utilities.Natural;
+ import apsd.interfaces.containers.base.MutableIterableContainer;
+ import apsd.interfaces.containers.iterators.MutableForwardIterator;
 
 /** Interface: Sequence & MutableIterableContainer con supporto alla scrittura tramite posizione. */
-public interface MutableSequence<Data> { // Must extend Sequence and MutableIterableContainer
+public interface MutableSequence<Data> extends Sequence<Data>, MutableIterableContainer<Data> { // Must extend Sequence and MutableIterableContainer
 
-  // SetAt
+  default void SetAt(Data data,Natural position){
 
-  // GetNSetAt
+    ExcIfOutOfBound(position);
+    MutableForwardIterator<Data> it  = FIterator();
+    it.Next(position.ToLong());
+    it.SetCurrent(data);
+  }
 
-  // SetFirst
+  default Data GetNSetAt(Data data,Natural position){
+    Data dataGot=GetAt(position);
+    SetAt(data, position);
+    return dataGot;
+  }
 
-  // GetNSetFirst
+  default void SetFirst(Data data){
+    SetAt(data,new Natural(0));
+  }
 
-  // SetLast
+  default Data GetNSetFirst(Data data){
+    Data dataGot=GetFirst();
+    SetFirst(data);
+    return dataGot;
+  }
 
-  // GetNSetLast
+  default void SetLast(Data data){
 
-  // Swap
+    MutableForwardIterator<Data> it  = FIterator();
+    long tmp=0;
+    while(!it.IsValid()){
+      tmp++;
+      it.Next();
+    }
+    SetAt(data,new Natural(tmp-1));
+  }
+
+  default Data GetNSetLast(Data data){
+    Data dataGot=GetLast();
+    SetLast(data);
+    return dataGot;
+  }
+
+  default void Swap(Natural first, Natural second){
+    if(IsInBound(first) && IsInBound(second)){
+      Data firstData = GetAt(first);
+      Data secondData = GetAt(second);
+      SetAt(firstData, first);
+      SetAt(secondData, second);
+    }
+  }
 
   /* ************************************************************************ */
   /* Override specific member functions from Sequence                         */
   /* ************************************************************************ */
 
-  // ...
+  @Override
+  MutableSequence<Data> SubSequence(Natural row, Natural col);
 
 }
