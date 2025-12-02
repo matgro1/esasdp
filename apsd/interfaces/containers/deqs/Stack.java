@@ -7,10 +7,21 @@ public interface Stack<Data> extends ClearableContainer,InsertableContainer<Data
 
   Data Top();
   void Pop();
-  Data TopNPop();
+  default Data TopNPop(){
+    Data data = Top();
+    Pop();
+    return data;
+  }
 
-  void SwapTop(Data data);
-  Data TopNSwap(Data data);
+  default void SwapTop(Data data){
+    Pop();
+    Push(data);
+  }
+  default Data TopNSwap(Data data){
+    Data top = Top();
+    SwapTop(data);
+    return top;
+  };
 
   void Push(Data data);
 
@@ -18,12 +29,24 @@ public interface Stack<Data> extends ClearableContainer,InsertableContainer<Data
   /* Override specific member functions from ClearableContainer               */
   /* ************************************************************************ */
 
+  @Override
+  default void Clear(){
+    while (Top() != null)Pop();
+  }
   // ...
 
   /* ************************************************************************ */
   /* Override specific member functions from InsertableContainer              */
   /* ************************************************************************ */
 
-  // ...
+  @Override
+  default boolean Insert(Data data){
+    try{
+      Push(data);
+      return java.util.Objects.equals(data, Top());
+    }catch(Exception e){
+      return false;
+    }
+  }
 
 }

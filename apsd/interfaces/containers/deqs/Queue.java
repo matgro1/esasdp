@@ -1,26 +1,45 @@
 package apsd.interfaces.containers.deqs;
 
-// import apsd.interfaces.containers.base.ClearableContainer;
-// import apsd.interfaces.containers.base.InsertableContainer;
+import apsd.interfaces.containers.base.ClearableContainer;
+import apsd.interfaces.containers.base.InsertableContainer;
 
-public interface Queue<Data> { // Must extend ClearableContainer and InsertableContainer
+public interface Queue<Data> extends ClearableContainer, InsertableContainer<Data>{ // Must extend ClearableContainer and InsertableContainer
 
-  // Head
-  // Dequeue
-  // HeadNDequeue
+  Data Head();
+  void Dequeue();
+  default Data HeadNDequeue(){
+      Data head = Head();
+      Dequeue();
+      return head;
+  }
 
-  // Enqueue
+  void Enqueue(Data data);
 
   /* ************************************************************************ */
   /* Override specific member functions from ClearableContainer               */
   /* ************************************************************************ */
 
-  // ...
+  @Override
+  default void Clear(){
+      while (Head() != null){
+          Dequeue();
+      }
+  }
 
   /* ************************************************************************ */
   /* Override specific member functions from InsertableContainer              */
   /* ************************************************************************ */
 
+    @Override
+    default boolean Insert(Data data){
+
+        try{
+            Enqueue(data);
+            return java.util.Objects.equals(data, Head());
+        }catch(Exception e){
+            return false;
+        }
+    }
   // ...
 
 }
