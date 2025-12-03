@@ -7,7 +7,12 @@ public interface Chain<Data> extends RemovableAtSequence<Data>{ // Must extend R
 
    boolean InsertIfAbsent(Data data);
 
-  void RemoveOccurrences(Data data);
+  default void RemoveOccurrences(Data data){
+      Natural index;
+      while ((index = Search(data)).compareTo(Size()) < 0) {
+          RemoveAt(index);
+      }
+  }
 
   Chain<Data> SubChain(Natural firstPos, Natural secondPos);
 
