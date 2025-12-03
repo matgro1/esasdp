@@ -61,6 +61,6 @@ public interface Sequence<Data> extends IterableContainer<Data>{ // Must extend 
        return idx;
      }
 
-    Sequence<Data> SubSequence(Natural row, Natural col);
+    Sequence<Data> SubSequence(Natural firstPos, Natural secondPos);
 
 }

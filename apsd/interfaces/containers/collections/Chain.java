@@ -1,20 +1,21 @@
 package apsd.interfaces.containers.collections;
 
-// import apsd.classes.utilities.Natural;
-// import apsd.interfaces.containers.sequences.RemovableAtSequence;
+import apsd.classes.utilities.Natural;
+import apsd.interfaces.containers.sequences.RemovableAtSequence;
 
-public interface Chain<Data> { // Must extend RemovableAtSequence
+public interface Chain<Data> extends RemovableAtSequence<Data>{ // Must extend RemovableAtSequence
 
-  // InsertIfAbsent
+   boolean InsertIfAbsent(Data data);
 
-  // RemoveOccurrences
+  void RemoveOccurrences(Data data);
 
-  // SubChain
+  Chain<Data> SubChain(Natural firstPos, Natural secondPos);
 
   /* ************************************************************************ */
   /* Override specific member functions from Sequence                         */
   /* ************************************************************************ */
 
-  // ...
+  @Override
+  Natural Search(Data data);
 
 }

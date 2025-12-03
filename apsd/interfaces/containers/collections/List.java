@@ -1,17 +1,16 @@
 package apsd.interfaces.containers.collections;
 
-// import apsd.classes.utilities.Natural;
-// import apsd.interfaces.containers.sequences.InsertableAtSequence;
-// import apsd.interfaces.containers.sequences.MutableSequence;
+import apsd.classes.utilities.Natural;
+import apsd.interfaces.containers.sequences.InsertableAtSequence;
+import apsd.interfaces.containers.sequences.MutableSequence;
 
-public interface List<Data> { // Must extend MutableSequence, InsertableAtSequence, and Chain
+public interface List<Data> extends MutableSequence<Data>, InsertableAtSequence<Data>, Chain<Data>{ // Must extend MutableSequence, InsertableAtSequence, and Chain
 
-  // SubList
+  List<Data> SubList(Natural firstPos, Natural secondPos);
 
   /* ************************************************************************ */
   /* Override specific member functions from ExtensibleContainer              */
   /* ************************************************************************ */
-
-  // ...
+  boolean Insert(Data data);
 
 }

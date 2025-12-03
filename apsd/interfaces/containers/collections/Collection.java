@@ -31,6 +31,7 @@ public interface Collection<Data> extends ClearableContainer, InsertableContaine
   /* Override specific member functions from ClearableContainer               */
   /* ************************************************************************ */
 
-  // ...
+  @Override
+    void Clear();
 
 }

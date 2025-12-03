@@ -62,6 +62,6 @@ public interface MutableSequence<Data> extends Sequence<Data>, MutableIterableCo
   /* ************************************************************************ */
 
   @Override
-  MutableSequence<Data> SubSequence(Natural row, Natural col);
+  MutableSequence<Data> SubSequence(Natural firstPos, Natural secondPos);
 
 }

@@ -7,7 +7,7 @@ public interface Container {
 
     Natural Size();
 
-    default boolean isEmpty(){
+    default boolean IsEmpty(){
         return Size().ToLong() == 0L;
     }
 
