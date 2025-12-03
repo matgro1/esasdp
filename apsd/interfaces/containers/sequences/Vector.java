@@ -73,6 +73,18 @@ public interface Vector<Data>extends ReallocableContainer,MutableSequence<Data> 
         return SubVector(firstPos, secondPos);
     }
 
+    @Override
+    Natural Capacity();
+
+    @Override
+    MutableBackwardIterator<Data> BIterator();
+
+    @Override
+    MutableForwardIterator<Data> FIterator();
+
+    @Override
+    void Realloc(Natural newsize);
+
     /* ************************************************************************ */
     /* Override specific member functions from Container                        */
     /* ************************************************************************ */

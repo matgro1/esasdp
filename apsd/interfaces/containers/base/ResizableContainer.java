@@ -10,9 +10,7 @@ public interface ResizableContainer extends ReallocableContainer { // Must exten
   double THRESHOLD_FACTOR = 2.0; // Must be strictly greater than 1.
 
 
-  default void Expand(){
-
-  }
+  void Expand();
   void Expand(Natural steps);
 
 
