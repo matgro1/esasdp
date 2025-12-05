@@ -84,7 +84,7 @@ public interface Vector<Data>extends ReallocableContainer,MutableSequence<Data> 
 
     @Override
     void Realloc(Natural newsize);
-
+    Natural Size();
     /* ************************************************************************ */
     /* Override specific member functions from Container                        */
     /* ************************************************************************ */

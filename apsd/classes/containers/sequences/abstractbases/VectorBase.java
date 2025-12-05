@@ -15,8 +15,16 @@ abstract public class VectorBase<Data> implements Vector<Data> { // Must impleme
     protected VectorBase() {
         this.arr = null;
     }
-    void NewVector(Data[] arr){
-        this.arr = arr;
+    protected void NewVector(Data[] arr){
+        if (arr == null) {
+            Clear();
+            return;
+        }
+
+        ArrayAlloc(new Natural(arr.length));
+
+
+        System.arraycopy(arr, 0, this.arr, 0, arr.length);
     }
 
     @SuppressWarnings("unchecked")

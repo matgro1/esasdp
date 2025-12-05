@@ -30,7 +30,8 @@ public class Vector<Data> extends LinearVectorBase<Data> { // Must extend Linear
  }
 
  protected Vector(Data[] arr){
-  this.arr = arr;
+  ArrayAlloc(new Natural(arr.length));
+  System.arraycopy(arr, 0, this.arr, 0, arr.length);
  }
 
 
