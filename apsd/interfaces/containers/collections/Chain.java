@@ -3,9 +3,15 @@ package apsd.interfaces.containers.collections;
 import apsd.classes.utilities.Natural;
 import apsd.interfaces.containers.sequences.RemovableAtSequence;
 
-public interface Chain<Data> extends RemovableAtSequence<Data>{ // Must extend RemovableAtSequence
+public interface Chain<Data> extends RemovableAtSequence<Data>,Set<Data>{ // Must extend RemovableAtSequence
 
-   boolean InsertIfAbsent(Data data);
+    default boolean InsertIfAbsent(Data data) {
+        if (!Exists(data)) {
+            Insert(data);
+            return true;
+        }
+        return false;
+    }
 
   default void RemoveOccurrences(Data data){
       Natural index;

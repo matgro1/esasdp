@@ -11,6 +11,9 @@ public interface List<Data> extends MutableSequence<Data>, InsertableAtSequence<
   /* ************************************************************************ */
   /* Override specific member functions from ExtensibleContainer              */
   /* ************************************************************************ */
-  boolean Insert(Data data);
-
+  @Override
+  default boolean Insert(Data data) {
+    InsertLast(data);
+    return true;
+  }
 }
