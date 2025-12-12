@@ -6,6 +6,8 @@ import apsd.interfaces.containers.base.TraversableContainer;
 import apsd.interfaces.containers.collections.List;
 import apsd.interfaces.containers.deqs.Queue;
 
+import java.util.EmptyStackException;
+
 /** Object: Wrapper queue implementation. */
 public class WQueue<Data> implements Queue<Data> { // Must implement Queue
 
@@ -57,15 +59,18 @@ public class WQueue<Data> implements Queue<Data> { // Must implement Queue
 
     @Override
     public Data Head(){
+        if(lst.IsEmpty()) throw new EmptyStackException();
         return lst.GetFirst();
     }
 
     @Override
     public void Dequeue() {
+        if(lst.IsEmpty()) throw new EmptyStackException();
         lst.RemoveFirst();
     }
     @Override
     public Data HeadNDequeue(){
+        if(lst.IsEmpty()) throw new EmptyStackException();
         Data ret = lst.GetFirst();
         lst.RemoveFirst();
         return ret;
@@ -73,7 +78,11 @@ public class WQueue<Data> implements Queue<Data> { // Must implement Queue
 
     @Override
     public void Enqueue(Data data) {
-        lst.InsertFirst(data);
+        lst.InsertLast(data);
+    }
+    public boolean Insert(Data data) {
+        Enqueue(data);
+        return true;
     }
     /* ************************************************************************ */
   /* Override specific member functions from Queue                            */

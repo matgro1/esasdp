@@ -24,6 +24,7 @@ abstract public class CircularVectorBase<Data> extends VectorBase<Data> { // Mus
     /* ************************************************************************ */
     @Override
     public Data GetAt(Natural offset){
+        ExcIfOutOfBound(offset);
         return arr[Math.toIntExact((offset.ToLong() + start) % arr.length)];
     }
 
@@ -88,6 +89,7 @@ abstract public class CircularVectorBase<Data> extends VectorBase<Data> { // Mus
     /* ************************************************************************ */
     @Override
     public void SetAt(Data data,Natural offset){
+        ExcIfOutOfBound(offset);
         arr[Math.toIntExact((offset.ToLong() + start) % arr.length)]=data;
     }
 

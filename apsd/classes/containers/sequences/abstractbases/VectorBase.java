@@ -42,6 +42,7 @@ abstract public class VectorBase<Data> implements Vector<Data> { // Must impleme
 
     @Override
     public void Clear() {
+        if(arr == null) return;
         for (int i = 0; i < arr.length; i++) {
             arr[i] = null;
         }
@@ -53,6 +54,57 @@ abstract public class VectorBase<Data> implements Vector<Data> { // Must impleme
     public Natural Capacity() {
         if (arr == null) return Natural.ZERO;
         return new Natural(arr.length);
+    }
+
+    @Override
+    public Data GetFirst() {
+        if (Size().IsZero()) throw new IndexOutOfBoundsException("Vector is empty!");
+        return GetAt(new Natural(0));
+    }
+
+    @Override
+    public Data GetLast() {
+        if (Size().IsZero()) throw new IndexOutOfBoundsException("Vector is empty!");
+        return GetAt(new Natural(Size().ToLong() - 1));
+    }
+    @Override
+    public void ShiftRight(Natural pos, Natural shift) {
+        long p = pos.ToLong();
+        long s = shift.ToLong();
+        long cap = Capacity().ToLong();
+        long size = Size().ToLong();
+
+        if (arr != null && (p + s) < cap) {
+            long len = size - p;
+            System.arraycopy(arr, (int)p, arr, (int)(p+s), (int)len);
+            for (int i = 0; i < s; i++) {
+                arr[(int)(p + i)] = null;
+            }
+        }
+    }
+
+    @Override
+    public void ShiftLeft(Natural pos, Natural shift) {
+        long p = pos.ToLong();
+        long s = shift.ToLong();
+        long cap = Capacity().ToLong();
+        long size = Size().ToLong();
+
+        if (arr != null && (p + s) < cap) {
+            long len = size - (p + s);
+            // Shift data
+            System.arraycopy(arr, (int)(p+s), arr, (int)p, (int)len);
+            // Nullify the end
+            for(long i = size - s; i < size; i++) {
+                arr[(int)i] = null;
+            }
+        }
+    }
+
+    public void Swap(Natural first, Natural second) {
+        Data tmp = GetAt(first);
+        SetAt(GetAt(second), first);
+        SetAt(tmp, second);
     }
     // ...
 

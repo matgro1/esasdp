@@ -25,8 +25,7 @@ public class DynCircularVector<Data> extends DynCircularVectorBase<Data>{ // Mus
     }
 
     public DynCircularVector(){
-
-        this.arr=null;
+        super();
         this.start=0L;
         this.size=0;
     }

@@ -5,6 +5,8 @@ import apsd.interfaces.containers.base.TraversableContainer;
 
 import apsd.interfaces.containers.sequences.DynVector;
 
+import java.util.Arrays;
+
 import static java.lang.Math.max;
 
 /** Object: Abstract dynamic linear vector base implementation. */
@@ -17,15 +19,19 @@ abstract public class DynLinearVectorBase<Data> extends LinearVectorBase<Data> i
         size = 0L;
     }
 
+    @Override
     public void ShiftRight(Natural pos,Natural shift){
-        Expand(shift);
-        size+=shift.ToLong();
-        super.ShiftRight(pos,shift);
+        if (size + shift.ToLong() > arr.length) {
+            Realloc(new Natural(size + shift.ToLong()));
+        }
+
+        super.ShiftRight(pos, shift);
+
+        size += shift.ToLong();
     }
 
     public void ShiftLeft(Natural pos,Natural shift) {
         super.ShiftLeft(pos,shift);
-        size -=shift.ToLong();
         Reduce(shift);
     }
     @Override
@@ -47,23 +53,19 @@ abstract public class DynLinearVectorBase<Data> extends LinearVectorBase<Data> i
 
     @Override
     public void Clear(){
-        Reduce(Capacity());
+        Realloc(new Natural(0));
         size = 0L;
     }
     @Override
     public void Realloc(Natural newSize){
         Data[] oldArr = this.arr;
         long newCapacity = newSize.ToLong();
-
         ArrayAlloc(newSize);
-
         if (oldArr != null) {
-            long elementsToCopy = this.size;
-
+            long elementsToCopy = Math.min(this.size, oldArr.length);
             if (newCapacity < elementsToCopy) {
                 elementsToCopy = newCapacity;
             }
-
             for (int i = 0; i < elementsToCopy; i++) this.arr[i] = oldArr[i];
 
             if (this.size > newCapacity) {
@@ -74,7 +76,6 @@ abstract public class DynLinearVectorBase<Data> extends LinearVectorBase<Data> i
     @Override
     public void ArrayAlloc(Natural newSize){
         this.arr = (Data[]) new Object[(int) newSize.ToLong()];
-        this.size =  newSize.ToLong();
     }
     /* ************************************************************************ */
     /* Override specific member functions from ClearableContainer               */
@@ -94,19 +95,22 @@ abstract public class DynLinearVectorBase<Data> extends LinearVectorBase<Data> i
 
     // ...
     @Override
-    public void Expand(Natural sizeOffset){
-        Realloc(new Natural(this.arr.length+sizeOffset.ToLong()));
+    public void Expand(Natural sizeOffset) {
+        Realloc(new Natural(this.arr.length + sizeOffset.ToLong()));
+        size += sizeOffset.ToLong();
     }
     @Override
-    public void Expand(){
-        Realloc(new Natural((long) (max(this.arr.length*THRESHOLD_FACTOR,1))));
+    public void Expand() {
+        Realloc(new Natural((long) (max(this.arr.length * THRESHOLD_FACTOR, 1))));
     }
     @Override
-    public void Reduce(Natural sizeOffset){
-        Realloc(new Natural(max(this.arr.length-sizeOffset.ToLong(),0)));
+    public void Reduce(Natural sizeOffset) {
+        Realloc(new Natural(max(this.arr.length - sizeOffset.ToLong(), 0)));
+        size -= sizeOffset.ToLong();
     }
-    public void Reduce(){
-        Realloc(new Natural((long) (max(this.arr.length/THRESHOLD_FACTOR,1))));
+    @Override
+    public void Reduce() {
+        Realloc(new Natural((long) (max(this.arr.length / THRESHOLD_FACTOR, 1))));
     }
 
 

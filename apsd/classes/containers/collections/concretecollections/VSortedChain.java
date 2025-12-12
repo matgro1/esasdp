@@ -43,7 +43,6 @@ public class VSortedChain<Data extends Comparable<? super Data>> extends VChainB
     @Override
     public boolean Insert(Data element) {
         if (element == null) return false;
-        if (Exists(element)) return false;
 
         long low = 0;
         long high = vec.Size().ToLong() - 1;
@@ -66,12 +65,24 @@ public class VSortedChain<Data extends Comparable<? super Data>> extends VChainB
 
     @Override
     public boolean InsertIfAbsent(Data element) {
+        if (Exists(element)) return false;
         return Insert(element);
     }
 
     /* ************************************************************************ */
     /* Override specific member functions from Chain                            */
     /* ************************************************************************ */
+    @Override
+    public Data GetFirst() {
+        if (vec.IsEmpty()) throw new IndexOutOfBoundsException("Empty sequence");
+        return vec.GetAt(new Natural(0));
+    }
+
+    @Override
+    public Data GetLast() {
+        if (vec.IsEmpty()) throw new IndexOutOfBoundsException("Empty sequence");
+        return vec.GetAt(new Natural(vec.Size().ToLong() - 1));
+    }
 
     @Override
     public void RemoveOccurrences(Data data) {

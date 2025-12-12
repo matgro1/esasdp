@@ -14,14 +14,7 @@ public interface InsertableAtSequence<Data> extends Sequence<Data>{ // Must exte
   }
 
   default void InsertLast(Data data){
-
-      ForwardIterator<Data> it  = FIterator();
-      long tmp=0;
-      while(it.IsValid()){
-          tmp++;
-          it.Next();
-      }
-      InsertAt(data,new Natural(tmp-1));
+      InsertAt(data, Size());
   }
 
 }

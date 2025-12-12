@@ -44,7 +44,7 @@ public class VList<Data> extends VChainBase<Data> implements List<Data> {
  /* ************************************************************************ */
  @Override
  public boolean Insert(Data data) {
-  vec.InsertAt(data, vec.Size());
+  InsertFirst(data);
   return true;
  }
 

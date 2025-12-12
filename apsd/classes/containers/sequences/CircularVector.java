@@ -9,8 +9,8 @@ import apsd.interfaces.containers.sequences.Vector;
 public class CircularVector<Data> extends CircularVectorBase<Data>{ // Must extend CircularVectorBase
 
   public CircularVector(){
-
-      this.arr=null;
+      super();
+      ArrayAlloc(new Natural(0));
       this.start=0L;
   }
 
@@ -72,6 +72,10 @@ public class CircularVector<Data> extends CircularVectorBase<Data>{ // Must exte
     @Override
     public Natural Size() {
       return new Natural(this.arr.length);
+    }
+    @Override
+    public void Clear() {
+        Realloc(new Natural(0));
     }
 
 }

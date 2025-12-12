@@ -19,6 +19,7 @@ public interface Sequence<Data> extends IterableContainer<Data>{ // Must extend 
         return GetAt(new Natural(0));
     }
     default Data GetLast(){
+        if (IsEmpty()) throw new IndexOutOfBoundsException("Sequence is empty!");
         ForwardIterator<Data> it  = FIterator();
         long tmp=0;
         while(it.IsValid()){

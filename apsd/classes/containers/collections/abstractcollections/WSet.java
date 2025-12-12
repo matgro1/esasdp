@@ -11,6 +11,7 @@ public class WSet<Data> extends WSetBase<Data,Chain<Data>>{ // Must extend WSetB
 
   public WSet(){
       super();
+      ChainAlloc();
   }
 
   public WSet(Chain<Data> chn){

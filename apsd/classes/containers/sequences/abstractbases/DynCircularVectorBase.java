@@ -32,6 +32,7 @@ abstract public class DynCircularVectorBase<Data> extends CircularVectorBase<Dat
     @Override
     public void Clear() {
         Reduce(Capacity());
+        size= 0L;
     }
 
     /* ************************************************************************ */
@@ -41,6 +42,7 @@ abstract public class DynCircularVectorBase<Data> extends CircularVectorBase<Dat
     @Override
     public void Expand(Natural sizeOffset){
         Realloc(new Natural(this.arr.length+sizeOffset.ToLong()));
+        size += sizeOffset.ToLong();
     }
     @Override
     public void Expand(){
@@ -49,6 +51,7 @@ abstract public class DynCircularVectorBase<Data> extends CircularVectorBase<Dat
     @Override
     public void Reduce(Natural sizeOffset){
         Realloc(new Natural(max(this.arr.length-sizeOffset.ToLong(),0)));
+        size -= sizeOffset.ToLong();
     }
     public void Reduce(){
         Realloc(new Natural((long) (max(this.arr.length/THRESHOLD_FACTOR,1))));
@@ -62,14 +65,17 @@ abstract public class DynCircularVectorBase<Data> extends CircularVectorBase<Dat
 
     public void ShiftLeft(Natural pos,Natural shift) {
         super.ShiftLeft(pos, shift);
-        this.size -= shift.ToLong();
         Reduce(shift);
     }
     @Override
     public void ShiftRight(Natural pos, Natural shift) {
-       Expand(shift);
+        if (size + shift.ToLong() > arr.length) {
+            Realloc(new Natural(size + shift.ToLong()));
+        }
+
         super.ShiftRight(pos, shift);
-        this.size += shift.ToLong();
+
+        size += shift.ToLong();
     }
     @Override
     public void InsertAt(Data data, Natural pos){

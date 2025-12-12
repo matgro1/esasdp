@@ -13,6 +13,7 @@ public class WOrderedSet<Data extends Comparable<? super Data>> extends WOrdered
 
     public WOrderedSet(){
         super();
+        ChainAlloc();
     }
 
     public WOrderedSet(Chain<Data> chn){

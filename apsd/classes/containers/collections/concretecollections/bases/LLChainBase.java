@@ -251,13 +251,13 @@ abstract public class LLChainBase<Data> implements Chain<Data> { // Must impleme
     }
     @Override
     public Data GetFirst() {
-        if (headref.IsNull()) return null;
+        if (headref.IsNull()) throw new IndexOutOfBoundsException("List is empty!");
         return headref.Get().Get();
     }
 
     @Override
     public Data GetLast() {
-        if (tailref.IsNull()) return null;
+        if (tailref.IsNull()) throw new IndexOutOfBoundsException("List is empty!");
         return tailref.Get().Get();
     }
     @Override

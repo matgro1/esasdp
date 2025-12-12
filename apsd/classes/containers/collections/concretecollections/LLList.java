@@ -74,7 +74,7 @@ public class LLList<Data> extends LLChainBase<Data> implements List<Data> {
 
     @Override
     public boolean Insert(Data data) {
-        InsertLast(data);
+        InsertFirst(data);
         return true;
     }
 

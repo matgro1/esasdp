@@ -8,6 +8,8 @@ import apsd.interfaces.containers.collections.OrderedSet;
 import apsd.interfaces.containers.collections.SortedChain;
 import apsd.interfaces.containers.iterators.ForwardIterator;
 
+import java.util.EmptyStackException;
+
 /** Object: Abstract wrapper set base implementation via chain. */
 abstract public class WOrderedSetBase<Data extends Comparable<? super Data>, Chn extends SortedChain<Data>> extends WSetBase<Data, Chain<Data>> implements OrderedSet<Data>  { // Must extend WSetBase and implement OrderedSet; Chn must extend SortedChain
 
@@ -19,38 +21,40 @@ abstract public class WOrderedSetBase<Data extends Comparable<? super Data>, Chn
   /* Override specific member functions from IterableContainer                */
   /* ************************************************************************ */
 
-    @Override
-    public boolean IsEqual(IterableContainer<Data> container) {
-      if (container == null) return false;
-      if (this == container) return true;
+  @Override
+  public boolean IsEqual(IterableContainer<Data> container) {
+    if (container == null) return false;
+    if (this == container) return true;
 
-      if (this.Size().ToLong() != container.Size().ToLong()) {
+    if (this.Size().ToLong() != container.Size().ToLong()) {
+      return false;
+    }
+
+    var myIter = chn.FIterator();
+    var otherIter = container.FIterator();
+
+    while (myIter.IsValid() && otherIter.IsValid()) {
+      Data myData = myIter.GetCurrent();
+      Data otherData = otherIter.GetCurrent();
+
+      if (!myData.equals(otherData)) {
         return false;
       }
 
-      var myIter = chn.FIterator();
-      var otherIter = container.FIterator();
-
-      while (myIter.IsValid() && otherIter.IsValid()) {
-        Data myData = myIter.GetCurrent();
-        Data otherData = otherIter.GetCurrent();
-
-        if (!myData.equals(otherData)) {
-          return false;
-        }
-
-        myIter.Next();
-        otherIter.Next();
-      }
-
-      return true;
+      myIter.Next();
+      otherIter.Next();
     }
+
+    return true;
+  }
   @Override
   public Data Min(){
+    if (chn.IsEmpty()) return null;
     return chn.GetFirst();
   }
   @Override
   public Data Max(){
+    if (chn.IsEmpty()) return null;
     return chn.GetLast();
   }
 
@@ -64,15 +68,19 @@ abstract public class WOrderedSetBase<Data extends Comparable<? super Data>, Chn
   }
   @Override
   public Data MinNRemove(){
-      Data min = chn.GetFirst();
-      chn.RemoveFirst();
-      return min;
+    if (chn.IsEmpty()) return null;
+
+    Data min = chn.GetFirst();
+    chn.RemoveFirst();
+    return min;
   }
   @Override
   public Data MaxNRemove(){
-      Data max = chn.GetLast();
-      chn.RemoveLast();
-      return max;
+
+    if (chn.IsEmpty()) return null;
+    Data max = chn.GetLast();
+    chn.RemoveLast();
+    return max;
   }
   @Override
   public Data Predecessor(Data d){
@@ -123,9 +131,9 @@ abstract public class WOrderedSetBase<Data extends Comparable<? super Data>, Chn
   }
   @Override
   public Data PredecessorNRemove(Data d){
-      Data ret = Predecessor(d);
-      RemovePredecessor(ret);
-      return ret;
+    Data ret = Predecessor(d);
+    RemovePredecessor(ret);
+    return ret;
   }
 
   @Override
@@ -134,7 +142,7 @@ abstract public class WOrderedSetBase<Data extends Comparable<? super Data>, Chn
     RemoveSuccessor(ret);
     return ret;
   }
-    /* ************************************************************************ */
+  /* ************************************************************************ */
   /* Override specific member functions from OrderedSet                       */
   /* ************************************************************************ */
 

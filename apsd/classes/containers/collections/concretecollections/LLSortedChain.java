@@ -83,6 +83,10 @@ public class LLSortedChain<Data extends Comparable<? super Data>> extends LLChai
 
     }
     @Override
+    public void Clear(){
+        SortedChain.super.Clear();
+    }
+    @Override
     public boolean InsertIfAbsent(Data data) {
 
         if (Exists(data)) return false;

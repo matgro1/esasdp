@@ -64,10 +64,15 @@ abstract public class VChainBase<Data> implements Chain<Data> {
         return false;
     }
 
-    /* ************************************************************************ */
-    /* Override specific member functions from Chain (Mancanti!)                */
-    /* ************************************************************************ */
+    @Override
+    public void RemoveFirst() {
+        if (!IsEmpty()) vec.AtNRemove(new Natural(0));
+    }
 
+    @Override
+    public void RemoveLast() {
+        if (!IsEmpty()) vec.AtNRemove(new Natural(Size().ToLong() - 1));
+    }
     @Override
     public boolean InsertIfAbsent(Data data) {
         boolean exists = false;
@@ -137,16 +142,16 @@ abstract public class VChainBase<Data> implements Chain<Data> {
         boolean modified = false;
         MutableNatural counter = new MutableNatural(0);
 
-        // Usiamo un while sul Size corrente perché Size cambia mentre rimuoviamo!
         while (counter.ToLong() < vec.Size().ToLong()) {
             Data data = vec.GetAt(new Natural(counter));
             if (filter.Apply(data)) {
-                counter.Increment(); // Tengo l'elemento, avanzo
+                counter.Increment();
             } else {
                 modified = true;
-                vec.AtNRemove(new Natural(counter)); // Rimuovo, NON avanzo (il prossimo scala qui)
+                vec.AtNRemove(new Natural(counter));
             }
         }
         return modified;
     }
+
 }

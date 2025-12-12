@@ -33,13 +33,12 @@ public interface MutableSequence<Data> extends Sequence<Data>, MutableIterableCo
 
   default void SetLast(Data data){
 
-    MutableForwardIterator<Data> it  = FIterator();
-    long tmp=0;
-    while(!it.IsValid()){
-      tmp++;
-      it.Next();
+    long size = Size().ToLong();
+    if (size > 0) {
+      SetAt(data, new Natural(size-1));
+    } else {
+      SetAt(data, new Natural(0));
     }
-    SetAt(data,new Natural(tmp-1));
   }
 
   default Data GetNSetLast(Data data){

@@ -6,6 +6,8 @@ import apsd.interfaces.containers.base.TraversableContainer;
 import apsd.interfaces.containers.collections.List;
 import apsd.interfaces.containers.deqs.Stack;
 
+import java.util.EmptyStackException;
+
 /** Object: Wrapper stack implementation. */
 public class WStack<Data> implements Stack<Data> { // Must implement Stack
 
@@ -60,27 +62,36 @@ public class WStack<Data> implements Stack<Data> { // Must implement Stack
     /* ************************************************************************ */
     @Override
     public Data Top(){
-        return lst.GetFirst();
+        if(lst.IsEmpty()) throw new EmptyStackException();
+        return lst.GetLast();
+    }
+    public boolean Insert(Data data) {
+        Push(data);
+        return true;
     }
     @Override
     public void Pop(){
-        lst.RemoveFirst();
+        if(lst.IsEmpty()) throw new EmptyStackException();
+        lst.RemoveLast();
     }
     @Override
     public Data TopNPop(){
-        Data ret = lst.GetFirst();
-        lst.RemoveFirst();
+        if(lst.IsEmpty()) throw new EmptyStackException();
+        Data ret = lst.GetLast();
+        lst.RemoveLast();
         return ret;
     }
 
     @Override
     public void SwapTop(Data data) {
-       lst.SetFirst(data);
+        if(lst.IsEmpty()) throw new EmptyStackException();
+        lst.SetLast(data);
     }
     @Override
     public Data TopNSwap(Data data) {
-        Data ret = lst.GetFirst();
-        lst.SetFirst(data);
+        if(lst.IsEmpty()) throw new EmptyStackException();
+        Data ret = lst.GetLast();
+        lst.SetLast(data);
         return ret;
     }
     @Override

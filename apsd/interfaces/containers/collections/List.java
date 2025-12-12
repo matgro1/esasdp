@@ -13,7 +13,7 @@ public interface List<Data> extends MutableSequence<Data>, InsertableAtSequence<
   /* ************************************************************************ */
   @Override
   default boolean Insert(Data data) {
-    InsertLast(data);
+    InsertFirst(data);
     return true;
   }
 }
