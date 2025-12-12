@@ -19,6 +19,8 @@ abstract public class LLChainBase<Data> implements Chain<Data> { // Must impleme
     protected final Box<LLNode<Data>> headref = new Box<>();
     protected final Box<LLNode<Data>> tailref = new Box<>();
 
+    public LLChainBase() {
+    }
     protected LLChainBase(Natural size, LLNode<Data> head, LLNode<Data> tail){
         this.size.Assign(size);
         this.headref.Set(head);

@@ -1,6 +1,7 @@
 package apsd.classes.containers.collections.abstractcollections.bases;
 
  import apsd.classes.utilities.Natural;
+ import apsd.interfaces.containers.base.IterableContainer;
  import apsd.interfaces.containers.base.TraversableContainer;
  import apsd.interfaces.containers.collections.Chain;
  import apsd.interfaces.containers.collections.Set;
@@ -51,24 +52,41 @@ abstract public class WSetBase<Data, Chn extends Chain<Data>> implements Set<Dat
   /* Override specific member functions from RemovableContainer               */
   /* ************************************************************************ */
 
-  // ...
+  public boolean Remove(Data data){
+      return chn.Remove(data);
+  }
 
   /* ************************************************************************ */
   /* Override specific member functions from IterableContainer                */
   /* ************************************************************************ */
 
-  // ...
+    @Override
+    public BackwardIterator<Data> BIterator() {
 
-  /* ************************************************************************ */
+        return chn.BIterator();
+    }
+    @Override
+    public ForwardIterator<Data> FIterator() {
+
+        return chn.FIterator();
+    }
+
+    /* ************************************************************************ */
   /* Override specific member functions from Collection                       */
   /* ************************************************************************ */
 
-  // ...
+    @Override
+    public boolean Filter(Predicate<Data> fun) {
+        return chn.Filter(fun);
+    }
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
   /* Override specific member functions from Set                              */
   /* ************************************************************************ */
+    abstract public Set<Data> Intersection(Set<Data> First, Set<Data> Second);
 
-  // ...
-
+    @Override
+    public boolean IsEqual(IterableContainer<Data> container) {
+        return chn.IsEqual(container);
+    }
 }
