@@ -41,12 +41,8 @@ public interface Stack<Data> extends ClearableContainer,InsertableContainer<Data
 
   @Override
   default boolean Insert(Data data){
-    try{
       Push(data);
       return java.util.Objects.equals(data, Top());
-    }catch(Exception e){
-      return false;
-    }
   }
 
 }

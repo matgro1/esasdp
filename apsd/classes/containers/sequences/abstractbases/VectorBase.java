@@ -42,10 +42,7 @@ abstract public class VectorBase<Data> implements Vector<Data> { // Must impleme
 
     @Override
     public void Clear() {
-        if(arr == null) return;
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = null;
-        }
+        Realloc(new Natural(0));
     }
     /* ************************************************************************ */
     /* Override specific member functions from ResizableContainer               */

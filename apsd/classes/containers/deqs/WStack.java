@@ -65,10 +65,7 @@ public class WStack<Data> implements Stack<Data> { // Must implement Stack
         if(lst.IsEmpty()) throw new EmptyStackException();
         return lst.GetLast();
     }
-    public boolean Insert(Data data) {
-        Push(data);
-        return true;
-    }
+
     @Override
     public void Pop(){
         if(lst.IsEmpty()) throw new EmptyStackException();

@@ -30,15 +30,21 @@ abstract public class DynLinearVectorBase<Data> extends LinearVectorBase<Data> i
         size += shift.ToLong();
     }
 
+
+    @Override
     public void ShiftLeft(Natural pos,Natural shift) {
-        super.ShiftLeft(pos,shift);
-        Reduce(shift);
+        super.ShiftLeft(pos, shift);
+        this.size -= shift.ToLong();
+        if (this.size < this.arr.length / 2) {
+            Realloc(new Natural(this.size));
+        }
     }
     @Override
     public void InsertAt(Data data, Natural pos){
         ShiftRight(pos,new Natural(1));
         super.SetAt(data,pos);
     }
+
     @Override
     public Data AtNRemove(Natural pos){
         Data data = super.GetAt(pos);
@@ -97,7 +103,7 @@ abstract public class DynLinearVectorBase<Data> extends LinearVectorBase<Data> i
     @Override
     public void Expand(Natural sizeOffset) {
         Realloc(new Natural(this.arr.length + sizeOffset.ToLong()));
-        size += sizeOffset.ToLong();
+        size= size+sizeOffset.ToLong();
     }
     @Override
     public void Expand() {
@@ -106,7 +112,6 @@ abstract public class DynLinearVectorBase<Data> extends LinearVectorBase<Data> i
     @Override
     public void Reduce(Natural sizeOffset) {
         Realloc(new Natural(max(this.arr.length - sizeOffset.ToLong(), 0)));
-        size -= sizeOffset.ToLong();
     }
     @Override
     public void Reduce() {
