@@ -6,16 +6,30 @@ public interface Set<Data> extends Collection<Data> { // Must extend Collection
 
   default void Union(Set<Data> set) {
     if (set == null) return;
-    set.TraverseForward(this::Insert);
+
+    if (set == this) {
+      return;
+    }
+
+    set.TraverseForward((elem) -> {
+      this.Insert(elem);
+      return false;
+    });
+
   }
 
   default void Difference(Set<Data> set) {
     if (set == null) return;
+
     if (set == this) {
       Clear();
       return;
     }
-    set.TraverseForward(this::Remove);
+
+    set.TraverseForward((elem) -> {
+      this.Remove(elem);
+      return false;
+    });
   }
 
   default void Intersection(Set<Data> set) {

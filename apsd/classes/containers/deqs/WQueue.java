@@ -59,18 +59,18 @@ public class WQueue<Data> implements Queue<Data> { // Must implement Queue
 
     @Override
     public Data Head(){
-        if(lst.IsEmpty()) throw new EmptyStackException();
+        if(lst.IsEmpty()) return null;
         return lst.GetFirst();
     }
 
     @Override
     public void Dequeue() {
-        if(lst.IsEmpty()) throw new EmptyStackException();
+        if(lst.IsEmpty()) return;
         lst.RemoveFirst();
     }
     @Override
     public Data HeadNDequeue(){
-        if(lst.IsEmpty()) throw new EmptyStackException();
+        if(lst.IsEmpty()) return null;
         Data ret = lst.GetFirst();
         lst.RemoveFirst();
         return ret;

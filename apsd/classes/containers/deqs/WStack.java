@@ -62,31 +62,30 @@ public class WStack<Data> implements Stack<Data> { // Must implement Stack
     /* ************************************************************************ */
     @Override
     public Data Top(){
-        if(lst.IsEmpty()) throw new EmptyStackException();
+        if(lst.IsEmpty()) return null;
         return lst.GetLast();
     }
 
     @Override
     public void Pop(){
-        if(lst.IsEmpty()) throw new EmptyStackException();
+        if(lst.IsEmpty()) return;
         lst.RemoveLast();
     }
     @Override
     public Data TopNPop(){
-        if(lst.IsEmpty()) throw new EmptyStackException();
-        Data ret = lst.GetLast();
-        lst.RemoveLast();
+        Data ret = Top();
+        Pop();
         return ret;
     }
 
     @Override
     public void SwapTop(Data data) {
-        if(lst.IsEmpty()) throw new EmptyStackException();
+        if (lst.IsEmpty())return;
         lst.SetLast(data);
     }
     @Override
     public Data TopNSwap(Data data) {
-        if(lst.IsEmpty()) throw new EmptyStackException();
+        if (lst.IsEmpty())return null;
         Data ret = lst.GetLast();
         lst.SetLast(data);
         return ret;
