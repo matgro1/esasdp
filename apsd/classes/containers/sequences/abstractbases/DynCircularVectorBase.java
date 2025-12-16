@@ -61,7 +61,6 @@ abstract public class DynCircularVectorBase<Data> extends CircularVectorBase<Dat
     public void Clear() {
         Realloc(new Natural(10));
         size = 0L;
-        this.start=0L;
     }
 
     /* ************************************************************************ */
@@ -91,15 +90,13 @@ abstract public class DynCircularVectorBase<Data> extends CircularVectorBase<Dat
     }
     @Override
     public void InsertLast(Data data){
-        if (this.size == this.arr.length) {
-            Expand(new Natural(1));
-            long physicalIndex = (this.start + this.size - 1) % this.arr.length;
-            this.arr[(int)physicalIndex] = data;
+        if (this.size == this. arr.length) {
+            Expand(Natural.ONE);
         } else {
-            long physicalIndex = (this.start + this.size) % this.arr.length;
-            this.arr[(int)physicalIndex] = data;
             this.size++;
         }
+        long physicalIndex = (this.start + this.size - 1) % this.arr.length;
+        this.arr[(int)physicalIndex] = data;
     }
 
     public void ShiftLeft(Natural pos,Natural shift) {

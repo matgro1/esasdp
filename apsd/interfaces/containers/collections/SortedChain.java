@@ -101,19 +101,13 @@ public interface SortedChain<Data extends Comparable<? super Data>>
     }
 
     @Override
-    default Chain<Data> SubChain(Natural firstPos, Natural secondPos) {
-        return null;
-    }
+    Chain<Data> SubChain(Natural firstPos, Natural secondPos);
 
     @Override
-    default Natural Search(Data data) {
-        return null;
-    }
+    Natural Search(Data data);
 
     @Override
-    default Sequence<Data> SubSequence(Natural firstPos, Natural secondPos) {
-        return null;
-    }
+    Sequence<Data> SubSequence(Natural firstPos, Natural secondPos);
 
     @Override
     default void Intersection(Set<Data> set) {
@@ -139,18 +133,14 @@ public interface SortedChain<Data extends Comparable<? super Data>>
     }
 
     @Override
-    default ForwardIterator<Data> FIterator() {
-        return null;
-    }
+    ForwardIterator<Data> FIterator();
 
     @Override
-    default BackwardIterator<Data> BIterator() {
-        return null;
-    }
+    BackwardIterator<Data> BIterator();
 
     @Override
-    default boolean IsEqual(IterableContainer<Data> container) {
-        return false;
+    default boolean IsEqual(IterableContainer<Data> container){
+        throw new UnsupportedOperationException(); // da problemi se non metto un'implementazione qua
     }
 
     @Override
@@ -175,22 +165,15 @@ public interface SortedChain<Data extends Comparable<? super Data>>
     }
 
     @Override
-    default void Clear() {
-
-    }
+    void Clear();
 
     @Override
-    default boolean Insert(Data data) {
-        return false;
-    }
+    boolean Insert(Data data);
 
     @Override
-    default boolean Remove(Data data) {
-        return false;
-    }
+    boolean Remove(Data data);
 
     @Override
-    default Data AtNRemove(Natural position) {
-        return null;
-    }
+    Data AtNRemove(Natural position);
+
 }

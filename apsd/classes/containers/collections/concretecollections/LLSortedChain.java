@@ -85,6 +85,7 @@ public class LLSortedChain<Data extends Comparable<? super Data>> extends LLChai
     @Override
     public void Clear(){
         this.headref.Set(null);
+        this.tailref.Set(null);
         size.Assign(0);
     }
     @Override

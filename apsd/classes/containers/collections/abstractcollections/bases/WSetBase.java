@@ -111,7 +111,7 @@ abstract public class WSetBase<Data, Chn extends Chain<Data>> implements Set<Dat
         Acc accumulator = ini;
         while (it.IsValid()) {
             accumulator = fun.Apply(it.GetCurrent(), accumulator);
-            it.Prev(); // <--- FONDAMENTALE: Qui ci vuole Prev(), non Next()!
+            it.Prev();
         }
         return accumulator;
     }

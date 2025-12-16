@@ -20,11 +20,7 @@ public interface DynVector<Data> extends ResizableContainer, InsertableAtSequenc
     /* Specific member functions of Vector                                       */
     /* ************************************************************************ */
 
-    @Override
-    void ShiftLeft(Natural pos, Natural num);
 
-    @Override
-    void ShiftRight(Natural pos, Natural num);
     @Override
     DynVector<Data> SubVector(Natural firstPos, Natural  secondPos);
 

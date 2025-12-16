@@ -19,7 +19,7 @@ public interface IterableContainer<Data> extends TraversableContainer<Data>{ // 
       }
 
       Data otherData = otherIter.DataNNext();
-      if (!currData.equals(otherData)) {
+      if (!java.util.Objects.equals(currData, otherData)) {
         return true;
       }
 

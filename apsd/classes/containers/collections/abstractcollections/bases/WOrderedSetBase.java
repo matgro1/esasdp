@@ -78,31 +78,11 @@ abstract public class WOrderedSetBase<Data extends Comparable<? super Data>, Chn
   }
   @Override
   public Data Predecessor(Data d){
-    if (d == null || chn.IsEmpty()) return null;
-    Data candidate = null;
-    ForwardIterator<Data> it = chn.FIterator();
-    while (it.IsValid()) {
-      Data current = it.GetCurrent();
-      if (current.compareTo(d) >= 0) {
-        return candidate;
-      }
-      candidate = current;
-      it.Next();
-    }
-    return candidate;
+    return chn.Predecessor(d);
   }
   @Override
   public Data Successor(Data d){
-    if (d == null || chn.IsEmpty()) return null;
-    var it = chn.FIterator();
-    while (it.IsValid()) {
-      Data current = it.GetCurrent();
-      if (current.compareTo(d) > 0) {
-        return current;
-      }
-      it.Next();
-    }
-    return null;
+   return chn.Successor(d);
   }
   @Override
   public void RemovePredecessor(Data d){

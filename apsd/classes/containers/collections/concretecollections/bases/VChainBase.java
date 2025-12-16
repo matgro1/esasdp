@@ -46,18 +46,16 @@ abstract public class VChainBase<Data> implements Chain<Data> {
     @Override
     public boolean Remove(Data data) {
         MutableNatural counter = new MutableNatural(0);
-        Box<Boolean> found = new Box<>(false);
 
-        vec.TraverseForward(elem -> {
+        boolean found = vec.TraverseForward(elem -> {
             if (elem.equals(data)) {
-                found.Set(true);
                 return true;
             }
-            counter.Increment();
+            counter. Increment();
             return false;
         });
 
-        if (found.Get()) {
+        if (found) {
             vec.AtNRemove(new Natural(counter));
             return true;
         }
@@ -75,7 +73,6 @@ abstract public class VChainBase<Data> implements Chain<Data> {
     }
     @Override
     public boolean InsertIfAbsent(Data data) {
-        boolean exists = false;
 
         final Box<Boolean> found = new Box<>(false);
         vec.TraverseForward(elem -> {
@@ -100,19 +97,16 @@ abstract public class VChainBase<Data> implements Chain<Data> {
     @Override
     public Natural Search(Data data) {
         MutableNatural counter = new MutableNatural(0);
-        Box<Boolean> found = new Box<>(false);
 
-        vec.TraverseForward(elem -> {
+        boolean found = vec.TraverseForward(elem -> {
             if (elem.equals(data)) {
-                found.Set(true);
                 return true;
             }
-            counter.Increment();
+            counter. Increment();
             return false;
         });
 
-        if(found.Get()) return new Natural(counter);
-        return vec.Size();
+        return found ? new Natural(counter) : vec.Size();
     }
 
     /* ************************************************************************ */

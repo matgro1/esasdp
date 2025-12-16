@@ -36,7 +36,7 @@ public class CircularVector<Data> extends CircularVectorBase<Data>{ // Must exte
    }
 
    protected CircularVector(Data[] arr){
-
+    this.arr = arr;
    }
 @Override
   public void NewVector(Data[] arr){

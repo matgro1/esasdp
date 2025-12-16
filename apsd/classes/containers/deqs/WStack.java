@@ -6,7 +6,6 @@ import apsd.interfaces.containers.base.TraversableContainer;
 import apsd.interfaces.containers.collections.List;
 import apsd.interfaces.containers.deqs.Stack;
 
-import java.util.EmptyStackException;
 
 /** Object: Wrapper stack implementation. */
 public class WStack<Data> implements Stack<Data> { // Must implement Stack
@@ -73,9 +72,8 @@ public class WStack<Data> implements Stack<Data> { // Must implement Stack
     }
     @Override
     public Data TopNPop(){
-        Data ret = Top();
-        Pop();
-        return ret;
+        if(lst.IsEmpty()) return null;
+        return lst.LastNRemove();
     }
 
     @Override

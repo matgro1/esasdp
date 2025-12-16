@@ -82,7 +82,7 @@ public class VList<Data> extends VChainBase<Data> implements List<Data> {
 
  @Override
  public boolean IsEqual(IterableContainer<Data> container) {
-  return false;
+  return vec.IsEqual(container);
  }
 
 

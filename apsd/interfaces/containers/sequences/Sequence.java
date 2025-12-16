@@ -49,10 +49,8 @@ public interface Sequence<Data> extends IterableContainer<Data>{ // Must extend 
     default boolean IsInBound(Natural position){
         ForwardIterator<Data> it  = FIterator();
         it.Next(position.ToLong());
-        if (!it.IsValid()) {
-            return false;
-        }
-        return true;
+
+        return it.IsValid();
     }
 
      default long ExcIfOutOfBound(Natural num) {

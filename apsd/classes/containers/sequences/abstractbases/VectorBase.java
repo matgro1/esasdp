@@ -42,7 +42,7 @@ abstract public class VectorBase<Data> implements Vector<Data> { // Must impleme
 
     @Override
     public void Clear() {
-        Realloc(new Natural(0));
+        Realloc(Natural.ZERO);
     }
     /* ************************************************************************ */
     /* Override specific member functions from ResizableContainer               */
@@ -56,7 +56,7 @@ abstract public class VectorBase<Data> implements Vector<Data> { // Must impleme
     @Override
     public Data GetFirst() {
         if (Size().IsZero()) throw new IndexOutOfBoundsException("Vector is empty!");
-        return GetAt(new Natural(0));
+        return GetAt(Natural.ZERO);
     }
 
     @Override
@@ -125,9 +125,10 @@ abstract public class VectorBase<Data> implements Vector<Data> { // Must impleme
         return new MutableForwardIterator<Data>() {
             long current = 0;
 
+            final long size = Size().ToLong();
             @Override
             public boolean IsValid() {
-                return current < Size().ToLong();
+                return current < size;
             }
 
             @Override
